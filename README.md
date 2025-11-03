@@ -5,5 +5,8 @@
 ### b) Cài đặt Ubuntu: <img width="1483" height="762" alt="image" src="https://github.com/user-attachments/assets/8190f6af-bde3-4cbf-9e60-508da9eb0ef7" /><br>
 ## 2. Cài đặt Docker Desktop
 Cài đặt Docker Desktop: <img width="1588" height="900" alt="image" src="https://github.com/user-attachments/assets/6ad3ec2e-94ae-4178-99c8-3c6b789227db" /><br>
-## 3. Cài đặt Docker Container
+## 3. Cài đặt Docker Container, sử dụng docker-compose.yml
+<img width="1483" height="762" alt="image" src="https://github.com/user-attachments/assets/f91f9a78-e644-493f-8607-8f09837cc75e" />
+NOTE: Với nginx do trùng port cũ nên ta sử dụng port 8081
+## 4.
 
