@@ -8,5 +8,8 @@ Cài đặt Docker Desktop: <img width="1588" height="900" alt="image" src="http
 ## 3. Cài đặt Docker Container, sử dụng docker-compose.yml
 <img width="1483" height="762" alt="image" src="https://github.com/user-attachments/assets/f91f9a78-e644-493f-8607-8f09837cc75e" />
 NOTE: Với nginx do trùng port cũ nên ta sử dụng port 8081
-## 4.
+## 4. Tạo Web thương mại điện tử
+### a) Viết code file index.html được giao diện sau:
+### b) 
+
 
