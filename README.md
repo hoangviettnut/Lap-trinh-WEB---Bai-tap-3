@@ -38,6 +38,5 @@ c) Node-RED: Công cụ lập trình trực quan (Visual Programming Tool) dựa
 d) InfluxDB: Cơ sở dữ liệu chuỗi thời gian (Time-Series Database - TSDB).<br>
 e) Grafana: Công cụ trực quan hóa (Visualization) và giám sát.<br>
 f) Nginx: Máy chủ web và Proxy ngược (Reverse Proxy).<br>
-# KẾT LUẬN: ĐÂY LÀ BÀI TOÁN SỬ DỤNG NODERED LÀM BACKEND KẾT NỐI VỚI DATABASE RỒI DÙNG FRONTEND ĐỂ THỰC HIỆN CÁC YÊU CẦU, FE LÀM NHIỆM VỤ MÃ HÓA PLAIN TEXT RỒI GỬI VỀ NODERED, NODERED SO SÁNH HASHPASSWORD VỚI DB VÀ TRẢ VỀ KẾT QUẢ. GRANFANA ĐỌC DỮ LIỆU ĐƯỢC LƯU TRONG INFLUXDB RỒI XUẤT RA DƯỚI DẠNG CÁC BIỂU ĐỒ TÙY CHỈNH => DỄ ÁM SÁT
-
+# KẾT LUẬN: BÀI TOÁN GIÚP SINH VIÊN HIỂU VỀ DB, CALL API, CÁCH ĐỂ TƯƠNG TÁC GIỮA FE-BE-DB, VIỆC MÃ HÓA, BMTT TÀI KHOẢN,..
 
