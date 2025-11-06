@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Lương Hoàng Việt</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      padding: 20px;
+      color: white;
+    }
+    
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    /* Login Form Styles */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .login-box {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeInDown 1s ease-out;
+    }
+    
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      background: linear-gradient(45deg, #00d4ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #b0c4de;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #00d4ff;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+    
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-login:active {
+      transform: translateY(0);
+    }
+    
+    .error-message {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    /* Dashboard Styles */
+    .dashboard {
+      display: none;
+    }
+    
+    .dashboard.active {
+      display: block;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .header h1 {
+      font-size: 36px;
+      background: linear-gradient(45deg, #00d4ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .user-info span {
+      color: #b0c4de;
+    }
+    
+    .btn-logout {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-logout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+    }
+    
+    .sensors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .sensor-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .sensor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 212, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .sensor-card h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #00d4ff;
+    }
+    
+    .sensor-value {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #00d4ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .sensor-unit {
+      font-size: 18px;
+      color: #b0c4de;
+      margin-left: 5px;
+    }
+    
+    .sensor-timestamp {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 10px;
+    }
+    
+    .sensor-status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    
+    .status-online {
+      background: rgba(0, 255, 136, 0.2);
+      color: #00ff88;
+    }
+    
+    .status-offline {
+      background: rgba(255, 107, 107, 0.2);
+      color: #ff6b6b;
+    }
+    
+    /* Grafana Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s;
+    }
+    
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: rgba(15, 32, 39, 0.95);
+      border-radius: 15px;
+      width: 95%;
+      height: 90%;
+      max-width: 1400px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.3s;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .modal-header h2 {
+      font-size: 24px;
+      color: #00d4ff;
+    }
+    
+    .close-modal {
+      background: rgba(255, 107, 107, 0.2);
+      color: #ff6b6b;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .close-modal:hover {
+      background: rgba(255, 107, 107, 0.3);
+      transform: scale(1.05);
+    }
+    
+    .grafana-iframe {
+      width: 100%;
+      height: calc(100% - 80px);
+      border: none;
+      border-radius: 10px;
+      background: white;
+    }
+    
+    .decorative-elements {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 212, 255, 0.1);
+      animation: float 20s infinite ease-in-out;
+    }
+    
+    .circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 5s;
+    }
+    
+    .circle:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 10s;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(30px, -30px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+      
+      .sensors-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .modal-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="decorative-elements">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <!-- Login Form -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-box">
+      <h2>🔐 Đăng Nhập</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Tên đăng nhập</label>
+          <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+        </div>
+        <button type="submit" class="btn-login">Đăng Nhập</button>
+        <div class="error-message" id="errorMessage"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <div class="header">
+      <h1>🚀 Hệ Thống Giám Sát IoT</h1>
+      <div class="user-info">
+        <span>Xin chào, <strong id="usernameDisplay"></strong></span>
+        <button class="btn-logout" onclick="logout()">Đăng Xuất</button>
+      </div>
+    </div>
+
+    <div class="sensors-grid">
+      <div class="sensor-card" onclick="showGrafana('temperature')">
+        <h3>🌡️ Nhiệt Độ</h3>
+        <div>
+          <span class="sensor-value" id="temperatureValue">--</span>
+          <span class="sensor-unit">°C</span>
+        </div>
+        <div class="sensor-timestamp" id="temperatureTimestamp">Đang tải...</div>
+        <div class="sensor-status status-offline" id="temperatureStatus">Offline</div>
+      </div>
+
+      <div class="sensor-card" onclick="showGrafana('light')">
+        <h3>💡 Ánh Sáng</h3>
+        <div>
+          <span class="sensor-value" id="lightValue">--</span>
+          <span class="sensor-unit">lux</span>
+        </div>
+        <div class="sensor-timestamp" id="lightTimestamp">Đang tải...</div>
+        <div class="sensor-status status-offline" id="lightStatus">Offline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grafana Modal -->
+  <div class="modal" id="grafanaModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Biểu Đồ Lịch Sử</h2>
+        <button class="close-modal" onclick="closeGrafanaModal()">✕ Đóng</button>
+      </div>
+      <iframe class="grafana-iframe" id="grafanaIframe" src=""></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Hàm mã hóa Base64
+    function encodeBase64(str) {
+      try {
+        return btoa(unescape(encodeURIComponent(str)));
+      } catch (e) {
+        console.error('Lỗi mã hóa Base64:', e);
+        return null;
+      }
+    }
+
+    // Hàm giải mã Base64
+    function decodeBase64(str) {
+      try {
+        return decodeURIComponent(escape(atob(str)));
+      } catch (e) {
+        console.error('Lỗi giải mã Base64:', e);
+        return null;
+      }
+    }
+
+    // Hàm lưu session vào cookie và localStorage
+    function saveSession(userData) {
+      // Lưu vào localStorage
+      localStorage.setItem('userSession', JSON.stringify(userData));
+      localStorage.setItem('sessionToken', userData.token);
+      localStorage.setItem('username', userData.username);
+      
+      // Lưu vào cookie (expires sau 30 ngày)
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
+      document.cookie = `sessionToken=${userData.token}; expires=${expires.toUTCString()}; path=/`;
+      document.cookie = `username=${encodeURIComponent(userData.username)}; expires=${expires.toUTCString()}; path=/`;
+    }
+
+    // Hàm kiểm tra session
+    function checkSession() {
+      const sessionToken = localStorage.getItem('sessionToken');
+      const username = localStorage.getItem('username');
+      
+      // Kiểm tra cookie
+      const cookies = document.cookie.split(';');
+      let cookieToken = null;
+      let cookieUsername = null;
+      
+      cookies.forEach(cookie => {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'sessionToken') cookieToken = value;
+        if (name === 'username') cookieUsername = decodeURIComponent(value);
+      });
+      
+      // Nếu có session hợp lệ, tự động đăng nhập
+      if (sessionToken && username) {
+        return { token: sessionToken, username: username };
+      } else if (cookieToken && cookieUsername) {
+        return { token: cookieToken, username: cookieUsername };
+      }
+      
+      return null;
+    }
+
+    // Hàm xóa session
+    function clearSession() {
+      localStorage.removeItem('userSession');
+      localStorage.removeItem('sessionToken');
+      localStorage.removeItem('username');
+      
+      // Xóa cookie
+      document.cookie = 'sessionToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
+    // Hàm đăng nhập
+    async function login(username, password) {
+      // Mã hóa password bằng Base64
+      const encodedPassword = encodeBase64(password);
+      
+      if (!encodedPassword) {
+        showError('Lỗi mã hóa mật khẩu');
+        return false;
+      }
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: encodedPassword // Gửi password đã mã hóa Base64
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.token) {
+          // Lưu session
+          const userData = {
+            token: data.token,
+            username: data.user.username,
+            id: data.user.id
+          };
+          saveSession(userData);
+          
+          // Hiển thị dashboard
+          showDashboard(data.user.username);
+          return true;
+        } else {
+          showError(data.message || 'Đăng nhập thất bại');
+          return false;
+        }
+      } catch (error) {
+        console.error('Lỗi đăng nhập:', error);
+        showError('Lỗi kết nối đến server');
+        return false;
+      }
+    }
+
+    // Hàm hiển thị lỗi
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.classList.add('show');
+      setTimeout(() => {
+        errorDiv.classList.remove('show');
+      }, 5000);
+    }
+
+    // Hàm hiển thị dashboard
+    function showDashboard(username) {
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('dashboard').classList.add('active');
+      document.getElementById('usernameDisplay').textContent = username;
+      
+      // Bắt đầu cập nhật dữ liệu
+      updateSensorData();
+      setInterval(updateSensorData, 5000); // Cập nhật mỗi 5 giây
+    }
+
+    // Hàm đăng xuất
+    function logout() {
+      if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+        clearSession();
+        document.getElementById('dashboard').classList.remove('active');
+        document.getElementById('loginContainer').style.display = 'flex';
+        document.getElementById('loginForm').reset();
+        closeGrafanaModal();
+      }
+    }
+
+    // Hàm lấy dữ liệu cảm biến mới nhất
+    async function updateSensorData() {
+      try {
+        const response = await fetch('/api/latest');
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          // Cập nhật nhiệt độ
+          if (data.data.temperature !== null && data.data.temperature !== undefined) {
+            document.getElementById('temperatureValue').textContent = parseFloat(data.data.temperature).toFixed(2);
+            document.getElementById('temperatureTimestamp').textContent = formatTimestamp(data.data.timestamp);
+            document.getElementById('temperatureStatus').textContent = 'Online';
+            document.getElementById('temperatureStatus').className = 'sensor-status status-online';
+          } else {
+            document.getElementById('temperatureValue').textContent = '--';
+            document.getElementById('temperatureStatus').textContent = 'Offline';
+            document.getElementById('temperatureStatus').className = 'sensor-status status-offline';
+          }
+
+          // Cập nhật ánh sáng
+          if (data.data.light !== null && data.data.light !== undefined) {
+            document.getElementById('lightValue').textContent = parseFloat(data.data.light).toFixed(2);
+            document.getElementById('lightTimestamp').textContent = formatTimestamp(data.data.timestamp);
+            document.getElementById('lightStatus').textContent = 'Online';
+            document.getElementById('lightStatus').className = 'sensor-status status-online';
+          } else {
+            document.getElementById('lightValue').textContent = '--';
+            document.getElementById('lightStatus').textContent = 'Offline';
+            document.getElementById('lightStatus').className = 'sensor-status status-offline';
+          }
+        }
+      } catch (error) {
+        console.error('Lỗi lấy dữ liệu:', error);
+      }
+    }
+
+    // Hàm format timestamp
+    function formatTimestamp(timestamp) {
+      if (!timestamp) return 'Không có dữ liệu';
+      const date = new Date(timestamp);
+      return date.toLocaleString('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    // Hàm hiển thị Grafana iframe
+    function showGrafana(sensorType) {
+      const modal = document.getElementById('grafanaModal');
+      const iframe = document.getElementById('grafanaIframe');
+      const title = document.getElementById('modalTitle');
+      
+      // Tạo URL Grafana dashboard (cần điều chỉnh theo dashboard ID thực tế)
+      // Ví dụ: /grafana/d-sensor-dashboard/sensor-dashboard?orgId=1&from=now-1h&to=now
+      // Hoặc có thể tạo dashboard động dựa trên sensorType
+      let grafanaUrl = '/grafana/';
+      
+      // Nếu có dashboard ID cụ thể, thêm vào đây
+      // Ví dụ: grafanaUrl = `/grafana/d/your-dashboard-id?orgId=1&var-sensor=${sensorType}&from=now-1h&to=now`;
+      
+      // Tạm thời dùng URL mặc định, bạn có thể thay đổi sau khi tạo dashboard trong Grafana
+      grafanaUrl = `/grafana/?orgId=1`;
+      
+      iframe.src = grafanaUrl;
+      title.textContent = `Biểu Đồ Lịch Sử - ${sensorType === 'temperature' ? 'Nhiệt Độ' : 'Ánh Sáng'}`;
+      modal.classList.add('active');
+    }
+
+    // Hàm đóng modal Grafana
+    function closeGrafanaModal() {
+      const modal = document.getElementById('grafanaModal');
+      const iframe = document.getElementById('grafanaIframe');
+      modal.classList.remove('active');
+      iframe.src = ''; // Dừng iframe
+    }
+
+    // Đóng modal khi click ra ngoài
+    document.getElementById('grafanaModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeGrafanaModal();
+      }
+    });
+
+    // Xử lý form đăng nhập
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      
+      if (!username || !password) {
+        showError('Vui lòng nhập đầy đủ thông tin');
+        return;
+      }
+      
+      await login(username, password);
+    });
+
+    // Kiểm tra session khi load trang
+    window.addEventListener('DOMContentLoaded', function() {
+      const session = checkSession();
+      if (session) {
+        showDashboard(session.username);
+      }
+    });
+  </script>
+</body>
+</html>

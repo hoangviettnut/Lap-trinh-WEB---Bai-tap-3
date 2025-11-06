@@ -1,0 +1,91 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: hoangviet
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: viet
+      MYSQL_PASSWORD: hoangviet
+    ports:
+      - "3306:3306"
+    networks:
+      - iotnetwork
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mariadb
+      # Xóa PMA_USER và PMA_PASSWORD để yêu cầu đăng nhập
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    networks:
+      - iotnetwork
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./nodered_data:/data
+    depends_on:
+      - mariadb
+      - influxdb
+    networks:
+      - iotnetwork
+
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    networks:
+      - iotnetwork
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=adminpasspass
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_SERVER_ROOT_URL=http://luonghoangviet.com/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    depends_on:
+      - influxdb
+    networks:
+      - iotnetwork
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./html:/usr/share/nginx/html:ro
+    depends_on:
+      - nodered
+      - grafana
+    networks:
+      - iotnetwork
+
+networks:
+  iotnetwork:
+    driver: bridge
