@@ -28,6 +28,7 @@ Nhiệt độ hiển thị theo dạng biểu đồ: <img width="1920" height="1
 ### Phải tắt tường lửa để tiện cấu hình
 ### a) Cấu hình file nginx và host để thêm luonghoangviet.com và đăng nhập: <img width="1920" height="1140" alt="image" src="https://github.com/user-attachments/assets/d4dc0490-7e88-47ba-aab8-3cb7ec28532f" /><br>
 ### b) Cấu hình nginx để http://luonghoangviet.com/nodered truy cập vào nodered qua cổng 80: <img width="1920" height="1140" alt="image" src="https://github.com/user-attachments/assets/426864b1-c829-4d73-b5fa-3461a8807ae7" /><br>
-### c) Cấu hình nginx để http://luonghoangviet.com/grafana truy cập vào grafana qua cổng 80: 
+### c) Cấu hình nginx để http://luonghoangviet.com/grafana truy cập vào grafana qua cổng 80: <img width="1920" height="1140" alt="image" src="https://github.com/user-attachments/assets/514338c1-e364-4f53-965c-c4a91d88050c" /><br>
+# TOÀN BỘ DB VÀ SOURCE CODE ĐƯỢC UPLOAD KÈM THEO GITHUB (BAO GỒM FILE CẤU HÌNH)
 
 
